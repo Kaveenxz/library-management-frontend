@@ -11,7 +11,14 @@
             </tr>
           </thead>
           <tbody>
-            
+            <tr *ngFor="let book of bookList">
+              <td>{{book.id}}</td>
+              <td>{{book.isbn}}</td>
+              <td>{{book.title}}</td>
+              <td>{{book.author}}</td>
+              <td>{{book.category}}</td>
+              <td>{{book.qty}}</td>
+            </tr>
           </tbody>
         </table>
       </div>
