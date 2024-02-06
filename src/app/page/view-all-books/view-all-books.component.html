@@ -78,7 +78,7 @@
           </div>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">QTY:</label>
-            <input type="number" value={{selectedBook?.qty}} class="form-control" id="recipient-name">
+            <input type="number"  [(ngModel)]="selectedBook && selectedBook.qty" [ngModelOptions]="{standalone: true}" class="form-control" id="recipient-name">
           </div>
         </form>
       </div>
