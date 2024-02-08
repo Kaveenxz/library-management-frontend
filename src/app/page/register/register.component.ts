@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit{
   loadCountries(){
     let api = "https://restcountries.com/v3.1/all";
     this.http.get(api).subscribe(res =>{
+      this.countryList=res;
       console.log(res);
       
     })
