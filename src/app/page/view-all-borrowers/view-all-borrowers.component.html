@@ -1,1 +1,24 @@
-<p>view-all-borrowers works!</p>
+<div class="table-responsive small container">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Address</th>
+          <th scope="col">Tele-Number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let borrower of borrowerList">
+          <td>#{{borrower.id}}</td>
+          <td>{{borrower.Fname}}</td>
+          <td>{{borrower.Lname}}</td>
+          <td>{{borrower.address}}</td>
+          <td>{{borrower.teleNo}}</td>
+          <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></button></td>
+          <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal" data-bs-whatever="@getbootstrap"><i class="bi bi-pencil-square"></i></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
