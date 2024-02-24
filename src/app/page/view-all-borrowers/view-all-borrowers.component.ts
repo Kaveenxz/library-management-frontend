@@ -31,13 +31,13 @@ export class ViewAllBorrowersComponent implements OnInit{
   }
 
   deleteBorrowers() {
-    let api = "http://localhost:8080/book/"+this.selectedBorrower.id;
+    let api = "http://localhost:8081/borrower/"+this.selectedBorrower.id;
     this.http.delete(api, { responseType: 'text' }).subscribe(
       (response: string) => {
         this.loadBorrowers();
         Swal.fire({
           title: "Good job!",
-          text: `${this.selectedBorrower.title} book is deleted`,
+          text: `${this.selectedBorrower.Fname} borrower is deleted`,
           icon: "success"
         });
         this.selectedBorrower = null;
@@ -46,18 +46,18 @@ export class ViewAllBorrowersComponent implements OnInit{
     )
   }
   
-  setSelecteBorrower(book:any){
-    this.selectedBorrower = book;
+  setSelecteBorrower(borrower:any){
+    this.selectedBorrower = borrower;
   }
 
-  saveBook(){
-    let postApi = "http://localhost:8080/borrower/add"
+  saveBorrower(){
+    let postApi = "http://localhost:8081/borrower/add"
     this.http.post(postApi, this.selectedBorrower).subscribe(data =>{
       console.log("saved!");
       this.loadBorrowers();
       Swal.fire({
         title: "Good job! Updated book",
-        text: `${this.selectedBorrower.title} book is Updated`,
+        text: `${this.selectedBorrower.Fname} borrower is Updated`,
         icon: "success"
       });
       this.selectedBorrower={};

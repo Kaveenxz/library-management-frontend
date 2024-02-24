@@ -16,9 +16,88 @@
           <td>{{borrower.Lname}}</td>
           <td>{{borrower.address}}</td>
           <td>{{borrower.teleNo}}</td>
-          <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></button></td>
-          <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal" data-bs-whatever="@getbootstrap"><i class="bi bi-pencil-square"></i></button></td>
+          <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="setSelecteBorrower(borrower)"><i class="bi bi-trash3-fill"></i></button></td>
+          <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal" data-bs-whatever="@getbootstrap" (click)="setSelecteBorrower(borrower)"><i class="bi bi-pencil-square"></i></button></td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <!-- modal delete-->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        If you want delete {{borroweList.id}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" (click)="deleteBorrowers()" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+<!--modal update-->
+
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">ID:</label>
+            <input type="text" value={{selectedBorrower?.id}} disabled class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">First Name:</label>
+            <input type="text" [(ngModel)]="selectedBorrower && selectedBorrower.Fname" [ngModelOptions]="{standalone: true}" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Last Name:</label>
+            <input type="text"  [(ngModel)]="selectedBorrower && selectedBorrower.Lname" [ngModelOptions]="{standalone: true}" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Tele Number:</label>
+            <input type="text" [(ngModel)]="selectedBorrower && selectedBorrower.teleNo" [ngModelOptions]="{standalone: true}" class="form-control" id="recipient-name">
+          </div>
+         
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#update">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- madal update confirmation-->
+
+<!-- Modal -->
+<div class="modal fade" id="update" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Borrower</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        If u want to update "{{selectedBorrower?.Fname}}" this Borrower
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveBorrower()"  data-bs-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
