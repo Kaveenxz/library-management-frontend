@@ -16,13 +16,12 @@ export class RegisterComponent implements OnInit {
 
   private http;
   public countryList: any;
-  public selectedCountry: any;
   public selectedCountryCode: any;
   public isExistUser: any;
-
+  public selectedCountry:any="Country";
   public userObj = {
     firstName: null,
-    lastName: null,
+    lasttName: null,
     userName: null,
     email: null,
     address: null,
@@ -39,17 +38,17 @@ export class RegisterComponent implements OnInit {
   }
 
   loadCountries() {
-    let api = "https://restcountries.com/v3.1/all";
-    this.http.get(api).subscribe(res => {
-      this.countryList = res;
-      console.log(res);
-
-    })
+    let api ="https://restcountries.com/v3.1/all";
+    this.http.get(api).subscribe(res =>{
+      this.countryList=res;
+    });
   }
 
   setSlectodCountry(country: any) {
-    console.log(country);
-    this.selectedCountry = country
+    console.log(country.name.common);
+    this.selectedCountry=country.name.common;
+    this.selectedCountryCode=country.idd.root+""+country.idd.suffixes[0]+" ";
+    console.log(this.selectedCountryCode);
   }
   submitForm() {
     console.log(this.userObj);
@@ -60,7 +59,22 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser(isExistUser: any) {
-      
+      if(!isExistUser==true){
+        this.http.post("http://localhost:8081/user/add-user", this.userObj).subscribe(data =>{
+
+        Swal.fire({
+          title:"Sucsess!",
+          text:`${this.userObj.userName} has been Registerd`,
+          icon:"success"
+        })
+      })
+      }else{
+        Swal.fire({
+          title:"Cant Register this user!",
+          text:`${this.userObj.userName} has already taken`,
+          icon:"error"
+        })
+      }
   }
 
 
