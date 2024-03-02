@@ -12,48 +12,56 @@ import Swal from 'sweetalert2';
   styleUrl: './register.component.css'
 })
 
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit {
 
   private http;
-  public countryList:any;
-  public selectedCountry:any;
-  public selectedCountryCode:any;
+  public countryList: any;
+  public selectedCountry: any;
+  public selectedCountryCode: any;
+  public isExistUser: any;
+
   public userObj = {
-    forstName:null,
-    lastName:null,
-    userName:null,
-    email:null,
-    address:null,
-    address2:null,
-    country:null,
-    phoneNummber:null
+    firstName: null,
+    lastName: null,
+    userName: null,
+    email: null,
+    address: null,
+    address2: null,
+    country: null,
+    phoneNummber: null
   }
 
-  constructor(private httpClient:HttpClient){
+  constructor(private httpClient: HttpClient) {
     this.http = httpClient
   }
   ngOnInit(): void {
-      this.loadCountries()
+    this.loadCountries()
   }
 
-  loadCountries(){
-    let api ="https://restcountries.com/v3.1/all";
-    this.http.get(api).subscribe(res =>{
-      this.countryList=res;
-    });
+  loadCountries() {
+    let api = "https://restcountries.com/v3.1/all";
+    this.http.get(api).subscribe(res => {
+      this.countryList = res;
+      console.log(res);
+
+    })
   }
 
-
-  setSlectodCountry(country:any){
-    console.log(country.name.common);
-    this.selectedCountry=country.name.common;
-    this.selectedCountryCode=country.idd.root+""+country.idd.suffixes[0]+" ";
-    console.log(this.selectedCountryCode);
-
+  setSlectodCountry(country: any) {
+    console.log(country);
+    this.selectedCountry = country
   }
-  submitForm(){
+  submitForm() {
     console.log(this.userObj);
-    
+    this.http.get(`http://localhost:8081/user/is-Exist-user/${this.userObj.userName}`).subscribe(data => {
+      this.isExistUser = data;
+      this.registerUser(this.isExistUser);
+    })
   }
+
+  registerUser(isExistUser: any) {
+      
+  }
+
 
 }
