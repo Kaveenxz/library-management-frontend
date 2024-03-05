@@ -18,7 +18,7 @@ export const routes: Routes = [
         component:RegisterComponent
     },
     {
-        path:"view-all-Borrowers",
+        path:"view-all-users",
         component:ViewAllBorrowersComponent
     }
 

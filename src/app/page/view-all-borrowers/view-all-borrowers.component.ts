@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import  Swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -12,55 +12,40 @@ import  Swal from 'sweetalert2';
   templateUrl: './view-all-borrowers.component.html',
   styleUrl: './view-all-borrowers.component.css'
 })
-export class ViewAllBorrowersComponent implements OnInit{
-  private http;
-  public borroweList:any = {};
-  public selectedBorrower:any;
+export class ViewAllBorrowersComponent implements OnInit {
+  public userList: any = {};
 
-  constructor(private httpClient:HttpClient){
-    this.http = httpClient;
+  public selectedUser: any = {
+    "id": null,
+    "firstName": null,
+    "lasttName": null,
+    "userName": null,
+    "email": null,
+    "address": null,
+    "address2": null,
+    "country": null,
+    "phoneNummber": null
   }
+
+  private baseUrl:string = 'http://localhost:8081'
+
+  constructor(private http: HttpClient) { }
+
   ngOnInit(): void {
-      this.loadBorrowers();
+    this.loadUsers();
   }
-  loadBorrowers(){
-    this.http.get('http://localhost:8081/borrower/get').subscribe((data) =>{
-      this.borroweList=data;
-      console.log(this.borroweList);
+
+  loadUsers() {
+    this.http.get("http://localhost:8081/user/get-all").subscribe((res: any) => {
+      console.log(res);
+      this.userList = res;
     })
   }
 
-  deleteBorrowers() {
-    let api = "http://localhost:8081/borrower/"+this.selectedBorrower.id;
-    this.http.delete(api, { responseType: 'text' }).subscribe(
-      (response: string) => {
-        this.loadBorrowers();
-        Swal.fire({
-          title: "Good job!",
-          text: `${this.selectedBorrower.Fname} borrower is deleted`,
-          icon: "success"
-        });
-        this.selectedBorrower = null;
+  deleteUser() { 
+    let api = ""
+  }
+  saveUser() { }
 
-      }
-    )
-  }
-  
-  setSelecteBorrower(borrower:any){
-    this.selectedBorrower = borrower;
-  }
 
-  saveBorrower(){
-    let postApi = "http://localhost:8081/borrower/add"
-    this.http.post(postApi, this.selectedBorrower).subscribe(data =>{
-      console.log("saved!");
-      this.loadBorrowers();
-      Swal.fire({
-        title: "Good job! Updated book",
-        text: `${this.selectedBorrower.Fname} borrower is Updated`,
-        icon: "success"
-      });
-      this.selectedBorrower={};
-    })
-  }
 }
