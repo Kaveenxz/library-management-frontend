@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,7 @@ export class RegisterComponent implements OnInit {
     phoneNummber: null
   }
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, public router: Router) {
     this.http = httpClient
   }
   ngOnInit(): void {
@@ -67,6 +68,7 @@ export class RegisterComponent implements OnInit {
           text:`${this.userObj.userName} has been Registerd`,
           icon:"success"
         })
+        this.router.navigate(['login'])
       })
       }else{
         Swal.fire({

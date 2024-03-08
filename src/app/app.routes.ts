@@ -20,6 +20,11 @@ export const routes: Routes = [
     {
         path:"view-all-users",
         component:ViewAllBorrowersComponent
+    },
+    {
+        path:"",
+        redirectTo:"login",
+        pathMatch:"full"
     }
 
 ];
