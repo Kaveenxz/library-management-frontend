@@ -10,11 +10,11 @@
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
   
       <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" [(ngModel)]="loginObj.email" [ngModelOptions]="{standalone:true}">
         <label for="floatingInput">Email address</label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password"  [(ngModel)]="loginObj.password" [ngModelOptions]="{standalone:true}">
         <label for="floatingPassword">Password</label>
       </div>
   
@@ -24,7 +24,7 @@
           Remember me
         </label>
       </div>
-      <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+      <button class="btn btn-primary w-100 py-2" type="submit" (click)="login()">Sign in</button>
       <button type="button" class="btn" [routerLink]="['/sing-up']">Sign-up</button>
 
       <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
